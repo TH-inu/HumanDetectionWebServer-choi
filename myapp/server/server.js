@@ -4,8 +4,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 // db 연결
-const conn = require('../conf/db.js');
-conn.connect();
+// const conn = require('../conf/db.js');
+// conn.connect();
 
 // 보안 허용
 app.use(cors());
