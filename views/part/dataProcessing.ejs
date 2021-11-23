@@ -1,0 +1,20 @@
+<script>
+    function dataProcessing(rowData) {
+        // string to int array
+        var csiData = []; var i = 0;
+        rowData.forEach( rowData => { 
+            csiData[i++] = rowData.csi_data.split(', ').map(item => {
+            return parseInt(item, 10);
+            });
+        });
+        
+        var data = [];
+        for (var i = 0; i < 20; i++) {
+            data[i] = {
+                name: (i+1)+' of CSI Data',
+                data: csiData[i]
+            }
+        }
+        return data
+    }
+</script>

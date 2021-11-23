@@ -20,21 +20,21 @@ const conn = require('../conf/db');
 const dbLoginInfo = require('../conf/db_login');
 conn.connect();
 
-
-let pre_id = -1
-function getSendData(socket) {
-    let sql = 'select * from plot_pred_data where section = 2 order by id desc limit 20';
+// 데이터 받아서 Web Page에 넘기는 함수
+let pre_id = [-1, -1, -1];
+function getFromDBSendToWeb(socket, section) {
+    let sql = 'select * from HT_plot_pred_data where section = '+section+' order by id desc limit 20';
     conn.query(sql, (err, row) => {
         if (err) {
             console.log(err);
         } else {
-            //console.log(row);
             let id = row[0]['id'];
-            if (pre_id != id) {
-                socket.emit("csiData", row);
-                console.log("sending Data");
+            if (pre_id[section-1] != id) {
+                console.log(id);
+                socket.emit("csiData"+section, row);
+                console.log("sending Data"+section);
             }
-            pre_id = id;
+            pre_id[section-1] = id;
         }
     });
 }
@@ -45,51 +45,20 @@ io.on("connection", (socket) => {
     s = socket;
     console.log(`connect: ${socket.id}`);
 
-    setInterval(getSendData, 2 * 1000, s);
-    // setInterval()
-    // // mysql events
-    // var lastRowID = -1;
-    // var mysqlEventWatcher = MySQLEvents(dbLoginInfo);
-    // var watcher = mysqlEventWatcher.add(
-    //     'test.plot_pred_data',
-    //     function (oldRow, newRow, event) {
-    //         console.log(oldRow);
-    //         console.log(newRow);
-    //         console.log(event);
-            
-    //         if (oldRow === null) {
-    //             console.log(oldRow);
-    //             console.log('insert');
-    //             // var sql = 'select * from plot_pred_data order by id desc limit 1';
-    //             // conn.query(sql, (err, row) => {
-    //             //     if (err) {
-    //             //         console.log(err);
-    //             //     } else {
-    //             //         // socket.emit("outlierData", row[0]);
-    //             //          console.log(row[0]);
-    //             //     }
-    //             // });
-
-    //             //console.log(newRow.changedColumns); // []
-    //         }
-    //         if (oldRow !== null && newRow !== null) {
-    //             console.log('update');
-    //         }
-    //     },
-    //     'Active'
-    // );
+    setInterval(getFromDBSendToWeb, 5000, s, 1);  // 2초에 한번 데이터 보내는 함수 실행
+    setInterval(getFromDBSendToWeb, 5000, s, 2);  // 2초에 한번 데이터 보내는 함수 실행
+    setInterval(getFromDBSendToWeb, 5000, s, 3);  // 2초에 한번 데이터 보내는 함수 실행
 });
 
-// const mainPage = require('./routes/mainPage');
 app.get('/mainPage', function(req, res) {
-    var sql = 'select * from plot_pred_data order by id desc limit 20';
+    var sql = 'select * from HT_plot_pred_data where section = 1 order by id desc limit 20';
     conn.query(sql, (err, row) => {
         if (err) {
             console.log(err);
         } else {
-            // socket.emit("outlierData", row[0]);
             console.log(row[0]);
             res.render('../views/mainPages.ejs', { csi_data: row, port: port });
         }
     });
+    // res.render('../views/mainPages.ejs', { port: port });
 });

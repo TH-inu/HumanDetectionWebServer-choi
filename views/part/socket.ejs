@@ -1,0 +1,25 @@
+<script>
+    var port = JSON.parse('<%- JSON.stringify(port) %>');
+    console.log(port);
+    var socket = io.connect("http://localhost:" + port);
+    socket.on('csiData1', function(data) {
+        updateGraph(data, graph1);
+    })
+    socket.on('csiData2', function(data) {
+        updateGraph(data, graph2);
+    })
+    socket.on('csiData3', function(data) {
+        updateGraph(data, graph3);
+    })
+
+    function updateGraph(data, graph) {
+        console.log(data['total_pred']);
+        var plotData = dataProcessing(data);
+        for (var i = 0; i < 20; i++) {
+            graph.series[i].update((plotData[i]));
+        }
+        graph.redraw();
+        console.log(data[0]['total_pred'])
+        predictResult.innerText = data[0]['total_pred'];
+    }
+</script>
