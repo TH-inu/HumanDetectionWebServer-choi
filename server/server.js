@@ -62,3 +62,10 @@ app.get('/mainPage', function(req, res) {
     });
     // res.render('../views/mainPages.ejs', { port: port });
 });
+
+const corsOptions = {
+    origin: 'https://192.168.35.88:3000',
+    credentials: true, 
+  };
+  
+  app.use(cors(corsOptions));
