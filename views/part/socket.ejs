@@ -1,48 +1,19 @@
 <script>
-    var port = JSON.parse('<%- JSON.stringify(port) %>');
-    console.log(port);
-    var socket = io.connect("http://localhost:" + port);
-    socket.on('csiData1', function(data) {
-        updateGraph(data, graph1);
-    })
-    socket.on('csiData2', function(data) {
-        updateGraph(data, graph2);
-    })
-    socket.on('csiData3', function(data) {
-        updateGraph(data, graph3);
-    })
-
-    function updateGraph(data, graph) {
-        console.log(data['total_pred']);
-        var plotData = dataProcessing(data);
-        for (var i = 0; i < 20; i++) {
-            graph.series[i].update((plotData[i]));
-        }
-        graph.redraw();
-        console.log(data[0]['total_pred'])
-        predictResult.innerText = data[0]['total_pred'];
-    }
-</script>
-
-<script>
-    function refreshData() {
-
+    function refreshData(section) {
         console.log("refreshed!");
         const config = {
-                    method: "post",
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-
-                        _Date: $("#selectDay").val()})
-                };
-                fetch('/mainPage', config)
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                })
-                .catch(error => console.log(error))
-
-
-
+            method: "post",
+            headers: {'Content-Type': 'application/json'},
+            body: {section: section}
+        };
+        fetch('/mainPage', config)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => console.log(error))
     }
+    setInterval(refreshData, 1);
+    setInterval(refreshData, 2);
+    setInterval(refreshData, 3);
 </script>

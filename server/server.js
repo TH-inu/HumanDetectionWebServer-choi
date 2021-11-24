@@ -70,14 +70,18 @@ app.get('/mainPage', function(req, res) {
             console.log(err);
         } else {
             console.log(row[0]);
-            setInterval(getFromDBSendToWeb, 5000, s, 1);  // 2초에 한번 데이터 보내는 함수 실행
-            setInterval(getFromDBSendToWeb, 5000, s, 2);  // 2초에 한번 데이터 보내는 함수 실행
-            setInterval(getFromDBSendToWeb, 5000, s, 3);  // 2초에 한번 데이터 보내는 함수 실행
             res.render('../views/mainPages.ejs', { csi_data: row, port: port });
         }
     });
     // res.render('../views/mainPages.ejs', { port: port });
 });
+
+app.post('/mainPage/getData', function(req, res) {
+    getFromDBSendToWeb(req.section);
+    // setInterval(getFromDBSendToWeb, 5000, s, 1);  // 2초에 한번 데이터 보내는 함수 실행
+    //         setInterval(getFromDBSendToWeb, 5000, s, 2);  // 2초에 한번 데이터 보내는 함수 실행
+    //         setInterval(getFromDBSendToWeb, 5000, s, 3);  // 2초에 한번 데이터 보내는 함수 실행
+})
 
 // const corsOptions = {
 //     origin: 'https://192.168.35.88:3000',
