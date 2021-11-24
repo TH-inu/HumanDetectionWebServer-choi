@@ -39,7 +39,7 @@ let pre_id = [-1, -1, -1];
 //     });
 // }
 
-function getFromDBSendToWeb(section) {
+function getFromDBSendToWeb(res, section) {
     let sql = 'select * from HT_plot_pred_data where section = '+section+' order by id desc limit 20';
     conn.query(sql, (err, row) => {
         if (err) {
@@ -78,7 +78,7 @@ app.get('/mainPage', function(req, res) {
 
 app.post('/mainPage/getData', function(req, res) {
     console.log(req.body.section);
-    getFromDBSendToWeb(req.body.section);
+    getFromDBSendToWeb(res, req.body.section);
     // setInterval(getFromDBSendToWeb, 5000, s, 1);  // 2초에 한번 데이터 보내는 함수 실행
     //         setInterval(getFromDBSendToWeb, 5000, s, 2);  // 2초에 한번 데이터 보내는 함수 실행
     //         setInterval(getFromDBSendToWeb, 5000, s, 3);  // 2초에 한번 데이터 보내는 함수 실행
