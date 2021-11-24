@@ -77,6 +77,7 @@ app.get('/mainPage', function(req, res) {
 });
 
 app.post('/mainPage/getData', function(req, res) {
+    console.log(req.section);
     getFromDBSendToWeb(req.section);
     // setInterval(getFromDBSendToWeb, 5000, s, 1);  // 2초에 한번 데이터 보내는 함수 실행
     //         setInterval(getFromDBSendToWeb, 5000, s, 2);  // 2초에 한번 데이터 보내는 함수 실행
