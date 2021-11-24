@@ -22,7 +22,24 @@ conn.connect();
 
 // 데이터 받아서 Web Page에 넘기는 함수
 let pre_id = [-1, -1, -1];
-function getFromDBSendToWeb(socket, section) {
+// function getFromDBSendToWeb(socket, section) {
+//     let sql = 'select * from HT_plot_pred_data where section = '+section+' order by id desc limit 20';
+//     conn.query(sql, (err, row) => {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             let id = row[0]['id'];
+//             if (pre_id[section-1] != id) {
+//                 console.log(id);
+//                 socket.emit("csiData"+section, row);
+//                 console.log("sending Data"+section);
+//             }
+//             pre_id[section-1] = id;
+//         }
+//     });
+// }
+
+function getFromDBSendToWeb(section) {
     let sql = 'select * from HT_plot_pred_data where section = '+section+' order by id desc limit 20';
     conn.query(sql, (err, row) => {
         if (err) {
@@ -31,8 +48,8 @@ function getFromDBSendToWeb(socket, section) {
             let id = row[0]['id'];
             if (pre_id[section-1] != id) {
                 console.log(id);
-                socket.emit("csiData"+section, row);
                 console.log("sending Data"+section);
+                res.json(row)
             }
             pre_id[section-1] = id;
         }
@@ -44,10 +61,6 @@ const io = socketio(server);
 io.on("connection", (socket) => {
     s = socket;
     console.log(`connect: ${socket.id}`);
-
-    setInterval(getFromDBSendToWeb, 5000, s, 1);  // 2초에 한번 데이터 보내는 함수 실행
-    setInterval(getFromDBSendToWeb, 5000, s, 2);  // 2초에 한번 데이터 보내는 함수 실행
-    setInterval(getFromDBSendToWeb, 5000, s, 3);  // 2초에 한번 데이터 보내는 함수 실행
 });
 
 app.get('/mainPage', function(req, res) {
@@ -57,15 +70,18 @@ app.get('/mainPage', function(req, res) {
             console.log(err);
         } else {
             console.log(row[0]);
+            setInterval(getFromDBSendToWeb, 5000, s, 1);  // 2초에 한번 데이터 보내는 함수 실행
+            setInterval(getFromDBSendToWeb, 5000, s, 2);  // 2초에 한번 데이터 보내는 함수 실행
+            setInterval(getFromDBSendToWeb, 5000, s, 3);  // 2초에 한번 데이터 보내는 함수 실행
             res.render('../views/mainPages.ejs', { csi_data: row, port: port });
         }
     });
     // res.render('../views/mainPages.ejs', { port: port });
 });
 
-const corsOptions = {
-    origin: 'https://192.168.35.88:3000',
-    credentials: true, 
-  };
+// const corsOptions = {
+//     origin: 'https://192.168.35.88:3000',
+//     credentials: true, 
+//   };
   
-  app.use(cors(corsOptions));
+//   app.use(cors(corsOptions));
