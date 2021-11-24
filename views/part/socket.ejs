@@ -4,7 +4,7 @@
         const config = {
             method: "post",
             headers: {'Content-Type': 'application/json'},
-            body: {section: section}
+            body: JSON.stringify({section: section})
         };
         fetch('/mainPage/getData', config)
         .then(res => res.json())
