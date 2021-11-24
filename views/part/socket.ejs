@@ -1,4 +1,14 @@
 <script>
+    function updateGraph(data, graph) {
+        console.log(data['total_pred']);
+        var plotData = dataProcessing(data);
+        for (var i = 0; i < 20; i++) {
+            graph.series[i].update((plotData[i]));
+        }
+        graph.redraw();
+        console.log(data[0]['total_pred'])
+        predictResult.innerText = data[0]['total_pred'];
+    }
     function refreshData(section) {
         console.log("refreshed!");
         const config = {
@@ -10,9 +20,11 @@
         .then(res => res.json())
         .then(data => {
             console.log(data);
+            updateGraph(data, graph+section);
         })
         .catch(error => console.log(error))
     }
+
     setInterval(refreshData, 2*1000, 1);
     setInterval(refreshData, 2*1000, 2);
     setInterval(refreshData, 2*1000, 3);
