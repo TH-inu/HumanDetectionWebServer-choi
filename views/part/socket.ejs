@@ -16,7 +16,7 @@
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({section: section})
         };
-        fetch('/mainPage/getData', config)
+        fetch('/mainPage/getData'+section, config)
         .then(res => res.json())
         .then(data => {
             console.log(data);
