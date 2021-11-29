@@ -45,12 +45,16 @@ function getFromDBSendToWeb(res, section) {
         if (err) {
             console.log(err);
         } else {
-            console.log(row.length);
+            // if (row.length == 0) res.json(0);
             let id = row[0].id
+            console.log(id);
             if (pre_id[section-1] != id) {
-                console.log(id);
+                // console.log(id);
                 console.log("sending Data"+section);
                 res.json(row)
+            }
+            else {
+                res.json(0);
             }
             pre_id[section-1] = id;
         }
