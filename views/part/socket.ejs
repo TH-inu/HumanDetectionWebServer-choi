@@ -14,6 +14,7 @@
         const config = {
             method: "post",
             headers: {'Content-Type': 'application/json'},
+            async: false,
             body: JSON.stringify({section: section})
         };
         fetch('/mainPage/getData', config)
@@ -26,6 +27,6 @@
     }
 
     setInterval(refreshData, 2*1000, 1);
-    setInterval(refreshData, 2*1000, 2);
+    // setInterval(refreshData, 2*1000, 2);
     setInterval(refreshData, 2*1000, 3);
 </script>
