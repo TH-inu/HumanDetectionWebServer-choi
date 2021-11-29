@@ -23,7 +23,7 @@ conn.connect();
 // 데이터 받아서 Web Page에 넘기는 함수
 let pre_id = [-1, -1, -1];
 // function getFromDBSendToWeb(socket, section) {
-//     let sql = 'select * from esp_csi where section = '+section+' order by id desc limit 20';
+//     let sql = 'select * from plot_pred_data where section = '+section+' order by id desc limit 20';
 //     conn.query(sql, (err, row) => {
 //         if (err) {
 //             console.log(err);
@@ -40,7 +40,7 @@ let pre_id = [-1, -1, -1];
 // }
 
 function getFromDBSendToWeb(res, section) {
-    let sql = 'select * from esp_csi where section = '+section+' order by id desc limit 20';
+    let sql = 'select * from plot_pred_data where section = '+section+' order by id desc limit 20';
     conn.query(sql, (err, row) => {
         if (err) {
             console.log(err);
@@ -69,7 +69,7 @@ io.on("connection", (socket) => {
 });
 
 app.get('/mainPage', function(req, res) {
-    var sql = 'select * from esp_csi where section = 1 order by id desc limit 20';
+    var sql = 'select * from plot_pred_data where section = 1 order by id desc limit 20';
     conn.query(sql, (err, row) => {
         if (err) {
             console.log(err);
