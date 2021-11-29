@@ -3,7 +3,7 @@
         // string to int array
         var csiData = []; var i = 0;
         rowData.forEach( rowData => { 
-            csiData[i++] = rowData.csi_data.split(', ').map(item => {
+            csiData[i++] = rowData.csi_data.split(' ').map(item => {
             return parseInt(item, 10);
             });
         });

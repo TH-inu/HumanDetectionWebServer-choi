@@ -45,7 +45,7 @@ function getFromDBSendToWeb(res, section) {
         if (err) {
             console.log(err);
         } else {
-            // console.log(row);
+            console.log(row.length);
             let id = row[0].id
             if (pre_id[section-1] != id) {
                 console.log(id);
