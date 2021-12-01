@@ -5,7 +5,7 @@
         <title>Show Real Time Graph</title>
         <%-include('part/header.ejs')%>
         <%-include('part/dataProcessing.ejs')%>
-        <%-include('part/socket.ejs')%>
+        <%-include('part/ajax.ejs')%>
         <style>
             .graph {
                 display : inline-block;
@@ -16,8 +16,9 @@
                 display         : inline-block;
                 text-align      : center;
                 width           : 900px;
-                font-size       : 200px;
+                font-size       : 150px;
                 vertical-align  : top;
+                margin-top      : 50px;
             }
         </style>
         <script>
@@ -32,11 +33,13 @@
             </div>
             <div style='height:355px;'>
                 <span class='graph' id="section3Graph"></span>
-                <span class='result' id="predictResult">0</span>
+                <span class='graph' id="section4Graph"></span>
             </div>
+            <span class='result' id="predictResult">0</span>
         </div>
         <%-include('part/chart1.ejs')%>
         <%-include('part/chart2.ejs')%>
         <%-include('part/chart3.ejs')%>
+        <%-include('part/chart4.ejs')%>
     </body>
 </html>

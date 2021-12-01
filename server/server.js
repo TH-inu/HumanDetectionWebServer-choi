@@ -40,7 +40,7 @@ let pre_id = [-1, -1, -1];
 // }
 
 function getFromDBSendToWeb(res, section) {
-    let sql = 'select * from plot_pred_data where section = '+section+' order by id desc limit 20';
+    let sql = 'select * from esp_csi where section = '+section+' order by id desc limit 20';
     conn.query(sql, (err, row) => {
         if (err) {
             console.log(err);

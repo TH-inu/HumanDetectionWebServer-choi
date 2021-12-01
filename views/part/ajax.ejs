@@ -27,13 +27,14 @@
             if (section == 1) graph = graph1;
             else if (section == 2) graph = graph2;
             else if (section == 3) graph = graph3;
+            else if (section == 4) graph = graph4;
             updateGraph(data, graph);
-
         })
         .catch(error => console.log(error))
     }
 
     setInterval(refreshData, 3*1000, 1);
-    // setInterval(refreshData, 3*1000, 2);
+    setInterval(refreshData, 3*1000, 2);
     setInterval(refreshData, 3*1000, 3);
+    setInterval(refreshData, 3*1000, 4);
 </script>
