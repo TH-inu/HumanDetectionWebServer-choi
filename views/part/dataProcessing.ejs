@@ -7,12 +7,24 @@
             return parseInt(item, 10);
             });
         });
-        
+
+        // var amplitudeData = [];
+        // var temp = [];
+        // for (var i = 0; i < 20; i++) {
+        //     for (var j = 0; j < 64; j++) {
+        //         temp[j] = [Math.sqrt(Math.pow(csiData[i][j],2) + Math.pow(csiData[i][j+1],2))];
+        //         // console.log(csiData[i][j]);
+        //         // console.log(csiData[i][j+1]);
+        //     }
+        //     amplitudeData[i] = temp;
+        // }
+        // console.log(amplitudeData);
         var data = [];
         for (var i = 0; i < 20; i++) {
             data[i] = {
                 name: (i+1)+' of CSI Data',
                 data: csiData[i]
+                // data: amplitudeData[i]
             }
         }
         return data

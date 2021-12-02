@@ -22,25 +22,8 @@ conn.connect();
 
 // 데이터 받아서 Web Page에 넘기는 함수
 let pre_id = [-1, -1, -1];
-// function getFromDBSendToWeb(socket, section) {
-//     let sql = 'select * from plot_pred_data where section = '+section+' order by id desc limit 20';
-//     conn.query(sql, (err, row) => {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             let id = row[0]['id'];
-//             if (pre_id[section-1] != id) {
-//                 console.log(id);
-//                 socket.emit("csiData"+section, row);
-//                 console.log("sending Data"+section);
-//             }
-//             pre_id[section-1] = id;
-//         }
-//     });
-// }
-
 function getFromDBSendToWeb(res, section) {
-    let sql = 'select * from esp_csi where section = '+section+' order by id desc limit 20';
+    let sql = 'select * from plot_pred_data where section = '+section+' order by id desc limit 20';
     conn.query(sql, (err, row) => {
         if (err) {
             console.log(err);
@@ -61,14 +44,9 @@ function getFromDBSendToWeb(res, section) {
     });
 }
 
-// socket 통신
-const io = socketio(server);
-io.on("connection", (socket) => {
-    s = socket;
-    console.log(`connect: ${socket.id}`);
-});
-
+// ajax 통신
 app.get('/mainPage', function(req, res) {
+    pre_id = [-1, -1, -1];
     var sql = 'select * from plot_pred_data where section = 1 order by id desc limit 20';
     conn.query(sql, (err, row) => {
         if (err) {
@@ -78,17 +56,9 @@ app.get('/mainPage', function(req, res) {
             res.render('../views/mainPages.ejs', { csi_data: row, port: port });
         }
     });
-    // res.render('../views/mainPages.ejs', { port: port });
 });
 
 app.post('/mainPage/getData', function(req, res) {
     console.log("section: ", req.body.section);
     getFromDBSendToWeb(res, req.body.section);
 })
-
-// const corsOptions = {
-//     origin: 'https://192.168.35.88:3000',
-//     credentials: true, 
-//   };
-  
-//   app.use(cors(corsOptions));

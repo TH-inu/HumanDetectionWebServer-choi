@@ -2,13 +2,14 @@
     function updateGraph(data, graph) {
         // console.log(data['total_pred']);
         var plotData = dataProcessing(data);
-        // console.log(plotData);
+        console.log(plotData);
         for (var i = 0; i < 20; i++) {
             graph.series[i].update((plotData[i]));
         }
         graph.redraw();
         console.log(data[0]['total_pred'])
         predictResult.innerText = data[0]['total_pred'];
+        setTimeout()
     }
     function refreshData(section) {
         // console.log("refreshed!");
@@ -33,8 +34,17 @@
         .catch(error => console.log(error))
     }
 
-    setInterval(refreshData, 3*1000, 1);
-    setInterval(refreshData, 3*1000, 2);
-    setInterval(refreshData, 3*1000, 3);
-    setInterval(refreshData, 3*1000, 4);
+    setInterval(func, 4*1000);
+
+    function func() {
+        refreshData(1);
+        setTimeout(refreshData, 1*1000, 2);
+        setTimeout(refreshData, 2*1000, 3);
+        setTimeout(refreshData, 3*1000, 4);
+    }
+    // setInterval(refreshData, 10*1000, 1);
+    // setInterval(refreshData, 10*1000, 2);
+    // setInterval(refreshData, 10*1000, 3);
+    // setInterval(refreshData, 10*1000, 4);
+    // setTimeout(refreshData)
 </script>
