@@ -1,18 +1,21 @@
 <script>
-    function updateGraph(data, graph) {
-        // console.log(data['total_pred']);
-        var plotData = dataProcessing(data);
-        console.log(plotData);
+    function updateGraph(data, graph, section, sec_result) {
+        var plotData = dataProcessing(data, section);
+        // console.log(plotData);
         for (var i = 0; i < 20; i++) {
-            graph.series[i].update((plotData[i]));
+            graph.data[i] = plotData[i];
         }
-        graph.redraw();
-        console.log(data[0]['total_pred'])
-        predictResult.innerText = data[0]['total_pred'];
+        Plotly.redraw(graph);
+        predictResult.innerText = 'total predict: '+data[0]['total_pred'];
+        if (data[0]['sec_pred'] != 0) {
+            document.getElementById("sectionResult"+section).style.color = '#F00';
+        }
+        else {
+            document.getElementById("sectionResult"+section).style.color = '#000';
+        }
         setTimeout()
     }
     function refreshData(section) {
-        // console.log("refreshed!");
         const config = {
             method: "post",
             headers: {'Content-Type': 'application/json'},
@@ -25,26 +28,17 @@
             console.log(data);
             // console.log(data);
             let graph;
-            if (section == 1) graph = graph1;
-            else if (section == 2) graph = graph2;
-            else if (section == 3) graph = graph3;
-            else if (section == 4) graph = graph4;
-            updateGraph(data, graph);
+            if (section == 1) {graph = graph1; sec_result = sectionResult1}
+            else if (section == 2) {graph = graph2; sec_result = sectionResult2}
+            else if (section == 3) {graph = graph3; sec_result = sectionResult3}
+            else if (section == 4) {graph = graph4; sec_result = sectionResult4}
+            updateGraph(data, graph, section, sec_result);
         })
         .catch(error => console.log(error))
     }
 
-    setInterval(func, 4*1000);
-
-    function func() {
-        refreshData(1);
-        setTimeout(refreshData, 1*1000, 2);
-        setTimeout(refreshData, 2*1000, 3);
-        setTimeout(refreshData, 3*1000, 4);
-    }
-    // setInterval(refreshData, 10*1000, 1);
-    // setInterval(refreshData, 10*1000, 2);
-    // setInterval(refreshData, 10*1000, 3);
-    // setInterval(refreshData, 10*1000, 4);
-    // setTimeout(refreshData)
+    setInterval(refreshData, 1*1000, 1);
+    setInterval(refreshData, 1*1000, 2);
+    setInterval(refreshData, 1*1000, 3);
+    setInterval(refreshData, 1*1000, 4);
 </script>

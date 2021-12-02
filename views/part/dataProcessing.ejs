@@ -1,9 +1,9 @@
 <script>
-    function dataProcessing(rowData) {
+    function dataProcessing(rowData, section) {
         // string to int array
         var csiData = []; var i = 0;
         rowData.forEach( rowData => { 
-            csiData[i++] = rowData.csi_data.split(' ').map(item => {
+            csiData[i++] = rowData.csi_data.split(', ').map(item => {
             return parseInt(item, 10);
             });
         });
@@ -20,10 +20,22 @@
         // }
         // console.log(amplitudeData);
         var data = [];
+        var xData = [];
+        for (var i = 0; i < 52; i++) {
+            xData[i] = i+1;
+        }
         for (var i = 0; i < 20; i++) {
             data[i] = {
-                name: (i+1)+' of CSI Data',
-                data: csiData[i]
+                x: xData,
+                y: csiData[i],
+                name: 'csi '+(i+1),
+
+
+                // name: (i+1)+' of CSI Data',
+                // data: csiData[i],
+                // yAxis: section,
+                // xAxis: section
+
                 // data: amplitudeData[i]
             }
         }

@@ -14,11 +14,10 @@
             }
             .result {
                 display         : inline-block;
-                text-align      : center;
-                width           : 900px;
-                font-size       : 150px;
+                font-size       : 50px;
                 vertical-align  : top;
-                margin-top      : 50px;
+                margin-top      : 10px;
+                margin-left     : 50px;
             }
         </style>
         <script>
@@ -28,18 +27,26 @@
     <body>
         <div style='height:900px; text-align: center;'>
             <div>
-                <span class='graph' id="section1Graph"></span>
-                <span class='graph' id="section2Graph"></span>
+                <div class="graph" id="graph1" style="width:840px;height:380px;"></div>
+                <div class="graph" id="graph2" style="width:840px;height:380px;"></div>
             </div>
             <div style='height:355px;'>
-                <span class='graph' id="section3Graph"></span>
-                <span class='graph' id="section4Graph"></span>
+                <div class="graph" id="graph3" style="width:840px;height:380px;"></div>
+                <div class="graph" id="graph4" style="width:840px;height:380px;"></div>
             </div>
-            <span class='result' id="predictResult">0</span>
+            <div>
+                <div class='result' id="sectionResult1">section 1</div>
+                <div class='result' id="sectionResult2">section 2</div>
+                <div class='result' id="sectionResult3">section 3</div>
+                <div class='result' id="sectionResult4">section 4</div>
+                <div class='result' id="predictResult">total predict: 0</div>
+            </div>
         </div>
-        <%-include('part/chart1.ejs')%>
+
+        <!-- <%-include('part/chart1.ejs')%>
         <%-include('part/chart2.ejs')%>
         <%-include('part/chart3.ejs')%>
-        <%-include('part/chart4.ejs')%>
+        <%-include('part/chart4.ejs')%> -->
+        <%-include('part/testGraph.ejs')%>
     </body>
 </html>

@@ -21,7 +21,7 @@ const dbLoginInfo = require('../conf/db_login');
 conn.connect();
 
 // 데이터 받아서 Web Page에 넘기는 함수
-let pre_id = [-1, -1, -1];
+let pre_id = [-1, -1, -1, -1];
 function getFromDBSendToWeb(res, section) {
     let sql = 'select * from plot_pred_data where section = '+section+' order by id desc limit 20';
     conn.query(sql, (err, row) => {
@@ -46,7 +46,7 @@ function getFromDBSendToWeb(res, section) {
 
 // ajax 통신
 app.get('/mainPage', function(req, res) {
-    pre_id = [-1, -1, -1];
+    pre_id = [-1, -1, -1, -1];
     var sql = 'select * from plot_pred_data where section = 1 order by id desc limit 20';
     conn.query(sql, (err, row) => {
         if (err) {

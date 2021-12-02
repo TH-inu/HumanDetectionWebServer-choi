@@ -1,0 +1,72 @@
+<script>
+    var rowData = JSON.parse('<%- JSON.stringify(csi_data) %>');
+    var data = dataProcessing(rowData);
+
+    var XYAxis = {xaxis: {
+        title: {
+        text: 'index',
+        font: {
+            family: 'Courier New, monospace',
+            size: 18,
+            color: '#7f7f7f'
+        }
+        },
+    },
+    yaxis: {
+        title: {
+        text: 'amplitude',
+        font: {
+            family: 'Courier New, monospace',
+            size: 18,
+            color: '#7f7f7f'
+        }
+        },
+        ticklen: 50,
+    }}
+
+    var layout1 = {
+    title: {
+        text:'Show Real Time CSI Data Section 1',
+        font: {
+        family: 'Courier New, monospace',
+        size: 24
+        },
+        xref: 'paper',
+        x: 0.05,
+    }, XYAxis};
+    var layout2 = {
+    title: {
+        text:'Show Real Time CSI Data Section 2',
+        font: {
+        family: 'Courier New, monospace',
+        size: 24
+        },
+        xref: 'paper',
+        x: 0.05,
+    }, XYAxis};
+    var layout3 = {
+    title: {
+        text:'Show Real Time CSI Data Section 3',
+        font: {
+        family: 'Courier New, monospace',
+        size: 24
+        },
+        xref: 'paper',
+        x: 0.05,
+    }, XYAxis};
+    var layout4 = {
+    title: {
+        text:'Show Real Time CSI Data Section 4',
+        font: {
+        family: 'Courier New, monospace',
+        size: 24
+        },
+        xref: 'paper',
+        x: 0.05,
+    }, XYAxis};
+
+    Plotly.newPlot( graph1, data, layout1);
+    Plotly.newPlot( graph2, data, layout2);
+    Plotly.newPlot( graph3, data, layout3);
+    Plotly.newPlot( graph4, data, layout4);
+</script>
