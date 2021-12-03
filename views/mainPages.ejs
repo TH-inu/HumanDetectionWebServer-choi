@@ -41,6 +41,14 @@
                 <div class='result' id="sectionResult4">section 4</div>
                 <div class='result' id="predictResult">total predict: 0</div>
             </div>
+            <div style="margin-left: 100px;">
+                <canvas id="myCanvas1" width="250px" height="200px"></canvas>
+                <canvas id="myCanvas2" width="250px" height="200px"></canvas>
+                <canvas id="myCanvas3" width="250px" height="200px"></canvas>
+                <canvas id="myCanvas4" width="250px" height="200px"></canvas>
+                <canvas id="myCanvas5" width="250px" height="200px"></canvas>
+                <canvas id="myCanvas5" width="100px" height="200px"></canvas>
+            </div>
         </div>
 
         <!-- <%-include('part/chart1.ejs')%>
@@ -48,5 +56,30 @@
         <%-include('part/chart3.ejs')%>
         <%-include('part/chart4.ejs')%> -->
         <%-include('part/testGraph.ejs')%>
+
+        <script>
+            const canvas1 = document.getElementById('myCanvas1');
+    const canvas2 = document.getElementById('myCanvas2');
+    const canvas3 = document.getElementById('myCanvas3');
+    const canvas4 = document.getElementById('myCanvas4');
+    const ctx1 = canvas1.getContext("2d");
+    const ctx2 = canvas2.getContext("2d");
+    const ctx3 = canvas3.getContext("2d");
+    const ctx4 = canvas4.getContext("2d");
+    ctx1.beginPath();
+    ctx2.beginPath();
+    ctx3.beginPath();
+    ctx4.beginPath();
+    ctx1.arc(100, 100, 50, 0, 2*Math.PI);
+    ctx2.arc(100, 100, 50, 0, 2*Math.PI);
+    ctx3.arc(100, 100, 50, 0, 2*Math.PI);
+    ctx4.arc(100, 100, 50, 0, 2*Math.PI);
+    ctx1.stroke();
+    ctx2.stroke();
+    ctx3.stroke();
+    ctx4.stroke();
+    ctx1.fillStyle = "red";
+    ctx1.fill();
+        </script>
     </body>
 </html>

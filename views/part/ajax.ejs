@@ -1,4 +1,5 @@
 <script>
+
     function updateGraph(data, graph, section, sec_result) {
         var plotData = dataProcessing(data, section);
         // console.log(plotData);
@@ -9,9 +10,19 @@
         predictResult.innerText = 'total predict: '+data[0]['total_pred'];
         if (data[0]['sec_pred'] != 0) {
             document.getElementById("sectionResult"+section).style.color = '#F00';
+            let canvas = document.getElementById('myCanvas'+section);
+            let ctx = canvas.getContext("2d");
+            ctx.fillStyle = "red";
+            ctx.fill()
+            // document.getElementById('myCanvas'+section).getContext("2d").fillStyle = "red";
+            // document.getElementById('myCanvas'+section).getContext("2d").fill();
         }
         else {
             document.getElementById("sectionResult"+section).style.color = '#000';
+            let canvas = document.getElementById('myCanvas'+section);
+            let ctx = canvas.getContext("2d");
+            ctx.fillStyle = "#eeeeee";
+            ctx.fill()
         }
         setTimeout()
     }
